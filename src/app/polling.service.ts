@@ -16,7 +16,7 @@ import {
 
 import { status } from './types';
 
-const INTERVAL = 10000;
+const INTERVAL = 5000;
 
 @Injectable({
   providedIn: 'root',
@@ -39,10 +39,10 @@ export class PollingService {
         interval(1000).pipe(
           take(INTERVAL + 1),
           takeUntil(visibilityChange$),
-          filter((interval) => interval === INTERVAL / 1000 - 1),
+          filter((interval) => interval === INTERVAL / 1000 - 2),
+          tap(() => stopped$.next(true)),
         ),
       ),
-      tap(() => stopped$.next(true)),
     );
 
     return visible$.pipe(
