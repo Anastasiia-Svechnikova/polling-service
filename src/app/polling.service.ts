@@ -16,7 +16,7 @@ import {
 
 import { status } from './types';
 
-const INTERVAL = 5000;
+const INTERVAL = 10000;
 
 @Injectable({
   providedIn: 'root',
