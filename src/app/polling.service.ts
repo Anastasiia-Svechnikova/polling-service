@@ -11,7 +11,7 @@ import {
   take,
   takeUntil,
   tap,
-  timer, withLatestFrom,
+  timer,
 } from 'rxjs';
 
 import { status } from './types';
@@ -23,7 +23,7 @@ const INTERVAL = 10000;
 })
 export class PollingService {
   doPolling<T>(observable: Observable<T>): Observable<T> {
-    const stopped$ = new BehaviorSubject(false)
+    const stopped$ = new BehaviorSubject(false);
     const visibilityChange$ = fromEvent(document, 'visibilitychange').pipe(
       map(() => document.visibilityState),
     );
@@ -42,7 +42,7 @@ export class PollingService {
           take(INTERVAL + 1),
           takeUntil(visibilityChange$),
           filter((interval) => interval === INTERVAL / 1000 - 2),
-          tap((v) => {
+          tap(() => {
             stopped$.next(true)
           })
         ),
